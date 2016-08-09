@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from trollop import TrelloConnection
 import logging 
+import argparse
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to 
 # py2. should try to use dicts for {name: cost} and to  practice using dicts 
 
@@ -12,7 +13,7 @@ token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
 # Set up basic logging
-logging.basicConfig(format='%(levelname)s %(message)s',
+logging.basicConfig(format='%(message)s',
     level=logging.INFO, filename='trello_expenses.log', filemode='w')
 
 # Establish connection
@@ -35,24 +36,26 @@ logging.info("Iterating through boards...")
 
 def main():
     total = 0.0
-    costs = list()
     names = list()
+    costs = list()
 
-    # get first index i.e the list im currently working on
+    # Set up connection and get reference to board
     board = conn.get_board('BE89pW61')
     board_lists = board.lists
-    current = board_lists[0]
+    logging.info('board_lists: {}'.format( board_lists) )
 
-    # Get all lists  names and ids in board
-    for entry in board_lists:
-
-        if 'august' in entry.name.lower():
-
-            for cards in entry.cards:
-                name, cost =  cards.name.split('-')
-                costs.append(float (cost) )
-    total = sum (costs)
-    print 'total is {}'.format( total )
+    # Iterate through lists adding up all costs and logging them
+    for lists in board_lists:
+        total = 0.0
+        logging.info('In {} month'.format(lists) )
+        for cards in lists.cards:
+            name, cost =  cards.name.split('-')
+            names.append( name )
+            costs.append( float(cost) )
+            logging.info(name)
+        total = sum (costs)
+        logging.info('Total for {} is {}'.format( lists, total) )
+        del costs[:]
 
 
 if __name__=='__main__':
