@@ -32,6 +32,7 @@ logging.info("Iterating through boards...")
 # for each_card in conn.me.boards[2].cards:
 #     print u"{0},{1},{2}".format(each_card._id, each_card.url,each_card.desc)  
 
+
 def main():
     total = 0.0
     costs = list()
@@ -41,17 +42,15 @@ def main():
     board = conn.get_board('BE89pW61')
     board_lists = board.lists
     current = board_lists[0]
+
     # Get all lists  names and ids in board
     for entry in board_lists:
 
         if 'august' in entry.name.lower():
-            # print u'List name: {0} list id: {1}'.format (entry.name, entry._id)
 
             for cards in entry.cards:
                 name, cost =  cards.name.split('-')
                 costs.append(float (cost) )
-                # print cards.name
-            # print costs
     total = sum (costs)
     print 'total is {}'.format( total )
 
