@@ -23,10 +23,11 @@ months = ['January', 'February', 'July', 'August', \
 
 logging.info("Iterating through boards...")
 
-for board in conn.me.boards:
-    # logging.info("id: {}".format(each._id))
-    # print u"board name: {0}, board id {1}" . format( board.name, board._id )  
-    logging.info (u"board name: {0}, board id {1}" . format( board.name, board._id ))  
+# for board in conn.me.boards:
+#     # logging.info("id: {}".format(each._id))
+#     # print u"board name: {0}, board id {1}" . format( board.name, board._id )  
+#     logging.info (u"board name: {0}, board id {1}".\
+#                     format( board.name, board._id ))  
 
 # for each_card in conn.me.boards[2].cards:
 #     print u"{0},{1},{2}".format(each_card._id, each_card.url,each_card.desc)  
@@ -49,8 +50,8 @@ def main():
             for cards in entry.cards:
                 name, cost =  cards.name.split('-')
                 costs.append(float (cost) )
-                print cards.name
-            print costs
+                # print cards.name
+            # print costs
     total = sum (costs)
     print 'total is {}'.format( total )
 
