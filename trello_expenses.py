@@ -15,8 +15,8 @@ token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idList': '577b17583e5d17ee55b20e45',
 # Set up basic logging
 logging.basicConfig(format='%(levelname)s %(message)s',
-                    level=logging.INFO, filename='trello_expenses.log', filemode='w')
-
+                    level=logging.INFO, filename='trello_expenses.log',
+                    filemode='w')
 # Establish connection
 conn = TrelloConnection(api_key, token)
 months = ['January', 'February', 'July', 'August',
