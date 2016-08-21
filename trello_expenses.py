@@ -54,8 +54,6 @@ def main():
             for cards in entry.cards:
                 name, cost = cards.name.split('-')
                 costs.append(float(cost))
-                # print cards.name
-            # print costs
     total = sum(costs)
     print 'total is {}'.format(total)
 
