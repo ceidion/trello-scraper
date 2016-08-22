@@ -25,16 +25,6 @@ months = ['January', 'February', 'July', 'August',
 
 logging.info("Iterating through boards...")
 
-# for board in conn.me.boards:
-#     # logging.info("id: {}".format(each._id))
-#     # print u"board name: {0}, board id {1}" . format( board.name, board._id )
-#     logging.info (u"board name: {0}, board id {1}".\
-#                     format( board.name, board._id ))
-
-# for each_card in conn.me.boards[2].cards:
-#     print u"{0},{1},{2}".format(each_card._id, each_card.url,each_card.desc)
-
-
 def main():
     total = 0.0
     costs = list()
@@ -46,17 +36,12 @@ def main():
     current = board_lists[0]
     # Get all lists  names and ids in board
     for entry in board_lists:
-
         if 'august' in entry.name.lower():
-            # print u'List name: {0} list id: {1}'.format (entry.name,
-            # entry._id)
-
             for cards in entry.cards:
                 name, cost = cards.name.split('-')
                 costs.append(float(cost))
     total = sum(costs)
     print 'total is {}'.format(total)
-
 
 if __name__ == '__main__':
     main()
