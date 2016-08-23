@@ -33,15 +33,18 @@ def main():
     # get first index i.e the list im currently working on
     board = conn.get_board('BE89pW61')
     board_lists = board.lists
-    current = board_lists[0]
+    logging.debug('Board list: {}'.format(board_lists))
     # Get all lists  names and ids in board
-    for entry in board_lists:
-        if 'august' in entry.name.lower():
-            for cards in entry.cards:
-                name, cost = cards.name.split('-')
-                costs.append(float(cost))
-    total = sum(costs)
-    print 'total is {}'.format(total)
+    for lists in board_lists:
+        logging.debug('in month {}'.format(lists))
+        total = 0.0
+        for cards in lists.cards:
+            name, cost = cards.name.split('-')
+            costs.append(float(cost))
+        total = sum(costs)
+        print 'total is {} for month {}'.format(total, lists)
+        logging.info( 'total is {} for month {}'.format(total, lists))
+        del costs[:]
 
 if __name__ == '__main__':
     main()
