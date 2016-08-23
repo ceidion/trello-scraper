@@ -19,31 +19,33 @@ logging.basicConfig(format='%(levelname)s %(message)s',
                     filemode='w')
 # Establish connection
 conn = TrelloConnection(api_key, token)
-months = ['January', 'February', 'July', 'August',
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
 # Get expenses board via ID
 
 logging.info("Iterating through boards...")
 
+def get_total_per_month(month, board_list):
+    costs = 0.0
+    month = month.lower()
+    for lst in board_list:
+        if month in lst.name.lower():
+            for crd in lst.cards:
+                costs += float(crd.name.split('-')[1])
+            # costs += float(lst.cards.name.split('-')[1])
+            # pull card data
+    return costs
+
 def main():
-    total = 0.0
-    costs = list()
     names = list()
 
-    # get first index i.e the list im currently working on
     board = conn.get_board('BE89pW61')
+    # totals = get_total_per_month('August', board.lists)
+    totals = [ get_total_per_month(month, board.lists) for month in months]
+    print totals
+    logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     # Get all lists  names and ids in board
-    for lists in board.lists:
-        logging.debug('in month {}'.format(lists))
-        total = 0.0
-        for cards in lists.cards:
-            name, cost = cards.name.split('-')
-            costs.append(float(cost))
-        total = sum(costs)
-        print 'total is {} for month {}'.format(total, lists.name.split(' ')[2])
-        logging.info( 'total is {} for month {}'.format(total, lists.name.split(' ')[2]))
-        del costs[:]
 
 if __name__ == '__main__':
     main()
