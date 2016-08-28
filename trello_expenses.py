@@ -22,6 +22,7 @@ months = ['January', 'February', 'July', 'August', \
           'September','October','November', 'December']
 # Get expenses board via ID
 
+
 logging.info("Iterating through boards...")
 
 # for board in conn.me.boards:
