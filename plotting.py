@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcdefaults()
 
+plt.title('Monthly food expenses')
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
