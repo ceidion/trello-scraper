@@ -2,7 +2,7 @@
 from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
-import plotting
+# import plotting
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
 
