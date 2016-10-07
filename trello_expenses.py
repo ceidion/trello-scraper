@@ -2,6 +2,7 @@
 from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
+from os import getenv
 # import plotting
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -9,9 +10,12 @@ import logging
 # TODO: Data Visualization, Error/exception handling, appending to log for running total
 # TODO: clean up code, get feedback on reddit, maybe use args for spec params
 # TODO: set up cron job to run every month
+api_key = getenv('API_KEY')
+print api_key
+if  api_key is None: # TRELLO API KEY
+    logging.error("Need to export API_KEY to your env variables")
 
 
-api_key = '2819ec494f41829d45bdea15e3cf20e0'  # TRELLO_API_KEY
 token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
