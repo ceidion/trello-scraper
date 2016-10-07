@@ -11,17 +11,15 @@ from os import getenv
 # TODO: clean up code, get feedback on reddit, maybe use args for spec params
 # TODO: set up cron job to run every month
 api_key = getenv('API_KEY')
-
 if  api_key is None: # TRELLO API KEY
     logging.error("Need to export API_KEY to your env variables")
     raise RuntimeError('export API_KEY env variable')
-    
+
 token = getenv('TOKEN')
 if token is None:
     logging.error('Need to export your token to env variables')
     raise RuntimeError('export TOKEN to env variable')
 
-# token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
 # Set up basic logging
