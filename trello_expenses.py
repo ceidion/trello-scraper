@@ -2,6 +2,8 @@
 from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
+from math import ceil
+import plotting
 # import plotting
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -37,7 +39,7 @@ def get_total_per_month(month, board_list):
                 costs += float(crd.name.split('-')[1])
             # costs += float(lst.cards.name.split('-')[1])
             # pull card data
-    return costs
+    return ceil(costs)
 
 def main():
     total = 0.0
@@ -52,8 +54,7 @@ def main():
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     # Get all lists  names and ids in board
-    plt.bar(range(len(months)), totals)
-    plt.show()
+   
 
 if __name__ == '__main__':
     main()
