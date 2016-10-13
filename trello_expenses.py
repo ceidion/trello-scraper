@@ -21,8 +21,6 @@ if token is None:
     logging.error('Need to export your token to env variables')
     raise RuntimeError('export TOKEN to env variable')
 
-api_key = '2819ec494f41829d45bdea15e3cf20e0'  # TRELLO_API_KEY
-token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
 # Set up basic logging
@@ -62,9 +60,6 @@ def main():
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     # Get all lists  names and ids in board
-   
-    plt.bar(range(len(months)), totals)
-    plt.show()
 
 if __name__ == '__main__':
     main()
