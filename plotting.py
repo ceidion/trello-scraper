@@ -37,6 +37,11 @@ ax.set_xticks(ind+width)
 xtickNames = ax.set_xticklabels(xTickMarks)
 plt.setp(xtickNames, rotation=45, fontsize=10)
 
+plt.bar(range(len(months)), totals)
+plt.xlabel('Months')
+plt.ylabel('Price $$$')
+plt.show()
+
 ## add a legend
 # ax.legend( (rects1[0], rects2[0]), ('Men', 'Women') )
 

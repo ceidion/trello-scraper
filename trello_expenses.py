@@ -2,7 +2,8 @@
 from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
-from os import getenv
+from math import ceil
+import plotting
 # import plotting
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -20,6 +21,8 @@ if token is None:
     logging.error('Need to export your token to env variables')
     raise RuntimeError('export TOKEN to env variable')
 
+api_key = '2819ec494f41829d45bdea15e3cf20e0'  # TRELLO_API_KEY
+token = '0a46c305b380455a83176624e3e980fa8cfcba3b189a668558f3b03dc729a60e'
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
 # Set up basic logging
@@ -44,7 +47,7 @@ def get_total_per_month(month, board_list):
                 costs += float(crd.name.split('-')[1])
             # costs += float(lst.cards.name.split('-')[1])
             # pull card data
-    return costs
+    return ceil(costs)
 
 def main():
     total = 0.0
@@ -59,6 +62,7 @@ def main():
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     # Get all lists  names and ids in board
+   
     plt.bar(range(len(months)), totals)
     plt.show()
 
