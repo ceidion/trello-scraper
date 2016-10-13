@@ -4,22 +4,21 @@ import matplotlib.pyplot as plt
 import logging
 from math import ceil
 import plotting
-# import plotting
+
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
 
 # TODO: Data Visualization, Error/exception handling, appending to log for running total
 # TODO: clean up code, get feedback on reddit, maybe use args for spec params
 # TODO: set up cron job to run every month
-api_key = getenv('API_KEY')
-if  api_key is None: # TRELLO API KEY
-    logging.error("Need to export API_KEY to your env variables")
-    raise RuntimeError('export API_KEY env variable')
-
-token = getenv('TOKEN')
-if token is None:
-    logging.error('Need to export your token to env variables')
-    raise RuntimeError('export TOKEN to env variable')
+k = list()
+with open('keys.txt', 'r') as keys:
+    for line in keys:
+        tmp = line.split('=')[1]
+        tmp = tmp.rstrip()
+        k.append(tmp)
+token = k[0]
+api_key = k[1]
 
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
@@ -28,6 +27,7 @@ logging.basicConfig(format='%(levelname)s %(message)s',
                     level=logging.INFO, filename='trello_expenses.log',
                     filemode='w')
 # Establish connection
+# conn = TrelloConnection(api_key, token)
 conn = TrelloConnection(api_key, token)
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
@@ -52,14 +52,11 @@ def main():
     costs = list()
     names = list()
 
-    # get first index i.e the list im currently working on
     board = conn.get_board('BE89pW61')
-    # totals = get_total_per_month('August', board.lists)
     totals = [ get_total_per_month(month, board.lists) for month in months]
     print totals
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
-    # Get all lists  names and ids in board
 
 if __name__ == '__main__':
     main()
