@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import logging
 from math import ceil
 import plotting
+from time import strftime
 
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -27,11 +28,9 @@ logging.basicConfig(format='%(levelname)s %(message)s',
                     level=logging.INFO, filename='trello_expenses.log',
                     filemode='w')
 # Establish connection
-# conn = TrelloConnection(api_key, token)
 conn = TrelloConnection(api_key, token)
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
-# Get expenses board via ID
 
 
 logging.info("Iterating through boards...")
@@ -44,8 +43,12 @@ def get_total_per_month(month, board_list):
             for crd in lst.cards:
                 costs += float(crd.name.split('-')[1])
             # costs += float(lst.cards.name.split('-')[1])
-            # pull card data
     return ceil(costs)
+
+def first_of_the_month():
+    day = strftime("%d")
+    if '1' is day:
+        pass
 
 def main():
     total = 0.0
