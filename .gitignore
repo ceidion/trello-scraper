@@ -90,3 +90,4 @@ ENV/
 
 # My files
 keys.txt
+*.png
