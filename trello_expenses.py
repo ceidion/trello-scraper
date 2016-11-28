@@ -62,7 +62,7 @@ def get_yearly_average(totals):
             print month
     year_average = sum / count
     print 'year ave ' + str(year_average)
-    return year_averagever
+    return year_average
 
 def main():
     total = 0.0
