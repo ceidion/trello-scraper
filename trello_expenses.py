@@ -3,8 +3,10 @@ from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
 from math import ceil
-import plotting
+# import plotting
 from time import strftime
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -29,7 +31,7 @@ logging.basicConfig(format='%(levelname)s %(message)s',
                     filemode='w')
 # Establish connection
 conn = TrelloConnection(api_key, token)
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
 
 
@@ -50,14 +52,27 @@ def first_of_the_month():
     if '1' is day:
         pass
 
+def get_yearly_average(totals):
+    sum = 0.0
+    count = 0
+    for month in totals:
+        if month != 0.0:
+            count = count + 1
+            sum += month
+            print month
+    year_average = sum / count
+    print 'year ave ' + str(year_average)
+    return year_averagever
+
 def main():
     total = 0.0
     costs = list()
     names = list()
 
     board = conn.get_board('BE89pW61')
-    totals = [ get_total_per_month(month, board.lists) for month in months]
+    totals = [ get_total_per_month(month, board.lists) for month in MONTHS]
     print totals
+    average = get_yearly_average(totals)
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
 
