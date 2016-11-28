@@ -3,7 +3,10 @@ from trollop import TrelloConnection
 import matplotlib.pyplot as plt
 import logging
 from math import ceil
-import plotting
+# import plotting
+from time import strftime
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
@@ -27,11 +30,9 @@ logging.basicConfig(format='%(levelname)s %(message)s',
                     level=logging.INFO, filename='trello_expenses.log',
                     filemode='w')
 # Establish connection
-# conn = TrelloConnection(api_key, token)
 conn = TrelloConnection(api_key, token)
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
           'September', 'October', 'November', 'December']
-# Get expenses board via ID
 
 
 logging.info("Iterating through boards...")
@@ -44,8 +45,24 @@ def get_total_per_month(month, board_list):
             for crd in lst.cards:
                 costs += float(crd.name.split('-')[1])
             # costs += float(lst.cards.name.split('-')[1])
-            # pull card data
     return ceil(costs)
+
+def first_of_the_month():
+    day = strftime("%d")
+    if '1' is day:
+        pass
+
+def get_yearly_average(totals):
+    sum = 0.0
+    count = 0
+    for month in totals:
+        if month != 0.0:
+            count = count + 1
+            sum += month
+            print month
+    year_average = sum / count
+    print 'year ave ' + str(year_average)
+    return year_averagever
 
 def main():
     total = 0.0
@@ -53,8 +70,9 @@ def main():
     names = list()
 
     board = conn.get_board('BE89pW61')
-    totals = [ get_total_per_month(month, board.lists) for month in months]
+    totals = [ get_total_per_month(month, board.lists) for month in MONTHS]
     print totals
+    average = get_yearly_average(totals)
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
 
