@@ -46,7 +46,7 @@ def get_total_per_month(month, board_list):
         if month in lst.name.lower():
             for crd in lst.cards:
                 costs += float(crd.name.split('-')[1])
-    return ceil(costs)
+    return costs
 
 
 def first_of_the_month():
