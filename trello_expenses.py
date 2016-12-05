@@ -62,14 +62,10 @@ def read_settings():
                      })
 
 def get_total_per_month(month, board_list):
-    costs = 0.0
     month = month.lower()
-    for lst in board_list:
-        if month in lst.name.lower():
-            for crd in lst.cards:
-                costs += float(crd.name.split('-')[1])
-    return costs
-
+    return sum(float(crd.name.split('-')[1])
+               for lst in board_list if month in lst.name.lower() for crd in lst.cards
+            )
 
 def first_of_the_month():
     day = strftime("%d")
