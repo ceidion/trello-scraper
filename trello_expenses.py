@@ -36,8 +36,30 @@ MONTHS = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug',
           'Sept', 'Oct', 'Nov', 'Dec']
 
 
-logging.info("Iterating through boards...")
 
+class FrozenDict(object):
+	def __init__(self, *args, **kwargs):
+		# Hack to bypass `__setattr__`.
+		self.__dict__['d'] = dict(*args, **kwargs)
+
+	def __getattr__(self, key):
+		return self.d[key]
+	
+	def __setattr__(self, key, val):
+		raise TypeError('FrozenDict does not support setting attributes.')
+
+	def __delattr__(self, key, val):
+		raise TypeError('FrozenDict does not support deleting attributes.')
+
+def read_settings():
+    with open('keys.txt', 'r') as keys:
+        k = [line.split('=')[1].rstrip() for line in keys]
+        token = k[0]
+        api_key = k[1]
+        return FrozenDict({'token':   k[0], 
+                       'api_key': k[1],
+                       'board': 'BE89pW61'
+                     })
 
 def get_total_per_month(month, board_list):
     costs = 0.0
@@ -81,6 +103,8 @@ def main():
     costs = list()
     names = list()
 
+    logging.info("Iterating through boards...")
+
     board = conn.get_board('BE89pW61')
     totals = [get_total_per_month(month, board.lists) for month in MONTHS]
     print totals
@@ -88,5 +112,6 @@ def main():
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     plot(totals, average)
+
 if __name__ == '__main__':
     main()
