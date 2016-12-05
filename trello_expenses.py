@@ -14,24 +14,10 @@ import matplotlib.pyplot as plt
 # TODO: Data Visualization, Error/exception handling
 # TODO: clean up code, get feedback on reddit, maybe use args for spec params
 # TODO: set up cron job to run every month
-k = list()
-with open('keys.txt', 'r') as keys:
-    for line in keys:
-        tmp = line.split('=')[1]
-        tmp = tmp.rstrip()
-        k.append(tmp)
-token = k[0]
-api_key = k[1]
 
 
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
-# Set up basic logging
-logging.basicConfig(format='%(levelname)s %(message)s',
-                    level=logging.INFO, filename='DEBUG.log',
-                    filemode='w')
-# Establish connection
-conn = TrelloConnection(api_key, token)
 MONTHS = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug',
           'Sept', 'Oct', 'Nov', 'Dec']
 
@@ -98,10 +84,12 @@ def plot(totals, average):
 def main():
     costs = list()
     names = list()
-
+    
+    # Establish connection
+    conn = TrelloConnection(SETTINGS.api_key, SETTINGS.token)
     logging.info("Iterating through boards...")
 
-    board = conn.get_board('BE89pW61')
+    board = conn.get_board(SETTINGS.board)
     totals = [get_total_per_month(month, board.lists) for month in MONTHS]
     print totals
     average = get_yearly_average(totals)
@@ -110,4 +98,10 @@ def main():
     plot(totals, average)
 
 if __name__ == '__main__':
+    SETTINGS = read_settings()
+    
+    # Set up basic logging
+    logging.basicConfig(format='%(levelname)s %(message)s',
+                    level=logging.INFO, filename='DEBUG.log',
+                    filemode='w')
     main()
