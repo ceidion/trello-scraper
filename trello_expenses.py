@@ -30,28 +30,33 @@ class FrozenDict(object):
 
 	def __getattr__(self, key):
 		return self.d[key]
-	
+
 	def __setattr__(self, key, val):
 		raise TypeError('FrozenDict does not support setting attributes.')
 
 	def __delattr__(self, key, val):
 		raise TypeError('FrozenDict does not support deleting attributes.')
 
+
 def read_settings():
     with open('keys.txt', 'r') as keys:
         k = [line.split('=')[1].rstrip() for line in keys]
         token = k[0]
         api_key = k[1]
-        return FrozenDict({'token':   k[0], 
-                       'api_key': k[1],
-                       'board': 'BE89pW61'
-                     })
+        return FrozenDict(
+                          {'token':   k[0],
+                           'api_key': k[1],
+                           'board': 'BE89pW61'
+                           }
+                          )
+
 
 def get_total_per_month(month, board_list):
     month = month.lower()
     return sum(float(crd.name.split('-')[1])
                for lst in board_list if month in lst.name.lower() for crd in lst.cards
             )
+
 
 def first_of_the_month():
     day = strftime("%d")
@@ -68,7 +73,7 @@ def get_yearly_average(totals):
             sum += month
             # print month
     year_average = sum / count
-    print 'year ave ' + str(year_average)
+    print 'year ave {}'.format(str(year_average))
     return year_average
 
 
@@ -84,7 +89,7 @@ def plot(totals, average):
 def main():
     costs = list()
     names = list()
-    
+
     # Establish connection
     conn = TrelloConnection(SETTINGS.api_key, SETTINGS.token)
     logging.info("Iterating through boards...")
@@ -99,9 +104,9 @@ def main():
 
 if __name__ == '__main__':
     SETTINGS = read_settings()
-    
+
     # Set up basic logging
     logging.basicConfig(format='%(levelname)s %(message)s',
-                    level=logging.INFO, filename='DEBUG.log',
-                    filemode='w')
+                        level=logging.INFO, filename='DEBUG.log',
+                        filemode='w')
     main()
