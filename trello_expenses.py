@@ -52,6 +52,11 @@ def read_settings():
 
 
 def get_total_per_month(month, board_list):
+    """Sums all the values in a month board.
+    :param month: The month to calculate total for
+    :param board_list: The entire Trello Board
+    :return: The sum for the month not rounded
+    """
     month = month.lower()
     return sum(float(crd.name.split('-')[1])
                for lst in board_list if month in lst.name.lower() for crd in lst.cards
