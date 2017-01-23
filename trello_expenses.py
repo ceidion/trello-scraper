@@ -58,6 +58,9 @@ def get_total_per_month(month, board_list):
     :return: The sum for the month not rounded
     """
     month = month.lower()
+    for mo in board_list:
+        if 'US' in mo.name:
+            print mo
     return sum(float(crd.name.split('-')[1])
                for lst in board_list if month in lst.name.lower() for crd in lst.cards
             )
