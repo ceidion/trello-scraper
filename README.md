@@ -9,9 +9,9 @@ token=alphanumeric
 api_key=alphanumeric
 
 Python 2.x
-`pip install trollop
-pip install seaborn
-pip install matplotlib`
+`pip install trollop`
+`pip install seaborn`
+`pip install matplotlib`
 
 
 ##Sample Trello Board with cards
