@@ -14,5 +14,7 @@ Python 2.x
 `pip install matplotlib`
 
 
-Sample Trello Board with cards
+##Sample Trello Board with cards
 ![alt tag](https://raw.githubusercontent.com/211217613/trello-scraper/master/images/trello_screenshot.png)
+##Sample Graph
+![alt tag](https://raw.githubusercontent.com/211217613/trello-scraper/master/images/graph.png)
