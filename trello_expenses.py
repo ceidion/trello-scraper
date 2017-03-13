@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
 
+# TODO: get exchange rate info from http://stackoverflow.com/questions/181990/programmatically-access-currency-exchange-rates?noredirect=1&lq=1
 # TODO: Data Visualization, Error/exception handling
 # TODO: clean up code, get feedback on reddit, maybe use args for spec params
 # TODO: set up cron job to run every month
@@ -64,13 +65,6 @@ def get_total_per_month(month, board_list):
     return sum(float(crd.name.split('-')[1])
                for lst in board_list if month in lst.name.lower() for crd in lst.cards
             )
-
-
-def first_of_the_month():
-    day = strftime("%d")
-    if '1' is day:
-        pass
-
 
 def get_yearly_average(totals):
     sum = 0.0
