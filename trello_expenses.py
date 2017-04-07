@@ -18,24 +18,32 @@ import matplotlib.pyplot as plt
 
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
-MONTHS = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug',
-          'Sept', 'Oct', 'Nov', 'Dec']
-
+MONTHS = ['jan', 'feb', 'March', 'April', 'May', 'June', 'July', 'Aug',
+          'sept', 'oct', 'Nov', 'Dec']
+USDMXN = {
+        'jan': 20.8340,
+        'dec': 20.7275,
+        'nov': 20.5720,
+        'oct': 18.8640,
+        'sept': 19.3850,
+        'aug': 18.7851,
+        'july': 18.752
+}
 
 
 class FrozenDict(object):
-	def __init__(self, *args, **kwargs):
-		# Hack to bypass `__setattr__`.
-		self.__dict__['d'] = dict(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        # Hack to bypass `__setattr__`.
+        self.__dict__['d'] = dict(*args, **kwargs)
 
-	def __getattr__(self, key):
-		return self.d[key]
+    def __getattr__(self, key):
+        return self.d[key]
 
-	def __setattr__(self, key, val):
-		raise TypeError('FrozenDict does not support setting attributes.')
+    def __setattr__(self, key, val):
+        raise TypeError('FrozenDict does not support setting attributes.')
 
-	def __delattr__(self, key, val):
-		raise TypeError('FrozenDict does not support deleting attributes.')
+    def __delattr__(self, key, val):
+        raise TypeError('FrozenDict does not support deleting attributes.')
 
 
 def read_settings():
@@ -53,9 +61,14 @@ def read_settings():
 
 def get_total_per_month(month, board_list):
     month = month.lower()
-    return sum(float(crd.name.split('-')[1])
-               for lst in board_list if month in lst.name.lower() for crd in lst.cards
-            )
+    total = sum(
+        float(crd.name.split('-')[1])
+        for lst in board_list if month in lst.name.lower() for crd in lst.cards
+               )
+    if total > 1000:
+        return total / USDMXN[month]
+    else:
+        return total
 
 
 def first_of_the_month():
@@ -96,17 +109,17 @@ def main():
 
     board = conn.get_board(SETTINGS.board)
     totals = [get_total_per_month(month, board.lists) for month in MONTHS]
-    print totals
     average = get_yearly_average(totals)
     logging.info(totals)
     logging.debug('Board list: {}'.format(board.lists))
     plot(totals, average)
+
 
 if __name__ == '__main__':
     SETTINGS = read_settings()
 
     # Set up basic logging
     logging.basicConfig(format='%(levelname)s %(message)s',
-                        level=logging.INFO, filename='DEBUG.log',
+                        level=logging.DEBUG, filename='DEBUG.log',
                         filemode='w')
     main()
