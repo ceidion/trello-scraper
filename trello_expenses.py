@@ -8,8 +8,6 @@ from time import strftime
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Lots of issues with Python3. Lots of unicode, string errors, Just switched to
-# py2. should try to use dicts for {name: cost} and to  practice using dicts
 
 # TODO: get exchange rate info from http://stackoverflow.com/questions/181990/programmatically-access-currency-exchange-rates?noredirect=1&lq=1
 # TODO: Data Visualization, Error/exception handling
@@ -38,7 +36,7 @@ class FrozenDict(object):
 	def __delattr__(self, key, val):
 		raise TypeError('FrozenDict does not support deleting attributes.')
 
-
+# TODO: use a json file for api key and token
 def read_settings():
     with open('keys.txt', 'r') as keys:
         k = [line.split('=')[1].rstrip() for line in keys]
@@ -59,9 +57,6 @@ def get_total_per_month(month, board_list):
     :return: The sum for the month not rounded
     """
     month = month.lower()
-    for mo in board_list:
-        if 'US' in mo.name:
-            print mo
     return sum(float(crd.name.split('-')[1])
                for lst in board_list if month in lst.name.lower() for crd in lst.cards
             )
@@ -73,7 +68,6 @@ def get_yearly_average(totals):
         if month != 0.0:
             count = count + 1
             sum += month
-            # print month
     year_average = sum / count
     print 'year ave {}'.format(str(year_average))
     return year_average
