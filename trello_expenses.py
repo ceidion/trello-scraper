@@ -71,11 +71,12 @@ def get_total_per_month(month, board_list):
         return total
 
 
-def first_of_the_month():
-    day = strftime("%d")
-    if '1' is day:
-        pass
-
+def parse_names():
+    """Parse names from Trello boards
+    bin the names and keep a count
+    input:: list of names
+    output:: name and number of times it comes up
+    """
 
 def get_yearly_average(totals):
     sum = 0.0
@@ -88,7 +89,6 @@ def get_yearly_average(totals):
     year_average = sum / count
     print 'year ave {}'.format(str(year_average))
     return year_average
-
 
 def plot(totals, average):
     sns.set(style='white', font_scale=1.5)
