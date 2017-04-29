@@ -21,6 +21,7 @@ Python 2.x
 
 ## TODO:
 - Integrate testing framework
+- Use algorithm to determine how much of a difference their is between names for clustering/binning
 - Use VCR to reproduce API calls
 - Parse name fields and graph in pie graph
 - Integrate USD and MXN currencies
