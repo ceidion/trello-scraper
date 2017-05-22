@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from trollop import TrelloConnection
-
+import vcr
 import logging
 from math import ceil
 from time import strftime
@@ -98,13 +98,16 @@ def plot(totals, average):
     sns.barplot(x=MONTHS, y=totals)
     plt.show()
 
+@vcr.use_cassette('./fixtures/establish_connection.yaml')
+def establish_connection():
+    return TrelloConnection(SETTINGS.api_key, SETTINGS.token)
 
 def main():
     costs = list()
     names = list()
 
     # Establish connection
-    conn = TrelloConnection(SETTINGS.api_key, SETTINGS.token)
+    conn = establish_connection()
     logging.info("Iterating through boards...")
 
     board = conn.get_board(SETTINGS.board)
