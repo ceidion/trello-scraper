@@ -70,13 +70,6 @@ def get_total_per_month(month, board_list):
     else:
         return total
 
-
-def first_of_the_month():
-    day = strftime("%d")
-    if '1' is day:
-        pass
-
-
 def get_yearly_average(totals):
     sum = 0.0
     count = 0
