@@ -48,7 +48,7 @@ class FrozenDict(object):
 
 def read_settings():
     with open('keys.txt', 'r') as keys:
-        k = [line.split('=')[1].rstrip() for line in keys]
+        k = [line.split('=')[1].rstrip().lstrip() for line in keys]
         token = k[0]
         api_key = k[1]
         return FrozenDict(
@@ -84,11 +84,13 @@ def get_yearly_average(totals):
 
 
 def plot(totals, average):
-    sns.set(style='white', font_scale=1.5)
+    sns.set(style='dark', font_scale=1.5)
     plt.title('Monthly Food Expenses')
     plt.xlabel('Months')
-    plt.ylabel('Pesos')
-    sns.barplot(x=MONTHS, y=totals)
+    plt.ylabel('USD')
+    ax = sns.barplot(x=MONTHS, y=totals)
+    ax.axhline(y=average, color='b', label='Yearly Average')
+    ax.set_ylim([0, 1000])
     plt.show()
 
 
