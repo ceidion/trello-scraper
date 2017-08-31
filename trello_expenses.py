@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
 
-#TODO:
+#TODO: make one big http request of boards/lists/cards for use with vcr
 
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
