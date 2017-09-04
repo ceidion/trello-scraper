@@ -11,10 +11,7 @@ import matplotlib.pyplot as plt
 # Lots of issues with Python3. Lots of unicode, string errors, Just switched to
 # py2. should try to use dicts for {name: cost} and to  practice using dicts
 
-# TODO: Data Visualization, Error/exception handling
-# TODO: clean up code, get feedback on reddit, maybe use args for spec params
-# TODO: set up cron job to run every month
-
+#TODO:
 
 # idBoard': '577b17583e5d17ee55b20e44',
 # idList': '577b17583e5d17ee55b20e45',
@@ -89,6 +86,7 @@ def get_yearly_average(totals):
     year_average = sum / count
     print 'year ave {}'.format(str(year_average))
     return year_average
+
 
 def plot(totals, average):
     sns.set(style='white', font_scale=1.5)
