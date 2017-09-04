@@ -46,11 +46,9 @@ class FrozenDict(object):
 def read_settings():
     with open('keys.txt', 'r') as keys:
         k = [line.split('=')[1].rstrip().lstrip() for line in keys]
-        token = k[0]
-        api_key = k[1]
         return FrozenDict(
-                          {'token':   k[0],
-                           'api_key': k[1],
+                          {'api_key':   k[0],
+                           'token': k[1],
                            'board': 'BE89pW61'
                            }
                           )
@@ -66,6 +64,14 @@ def get_total_per_month(month, board_list):
         return total / USDMXN[month]
     else:
         return total
+
+
+def parse_names():
+    """Parse names from Trello boards
+    bin the names and keep a count
+    input:: list of names
+    output:: name and number of times it comes up
+    """
 
 def get_yearly_average(totals):
     sum = 0.0
