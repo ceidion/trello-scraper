@@ -45,12 +45,10 @@ class FrozenDict(object):
 
 def read_settings():
     with open('keys.txt', 'r') as keys:
-        k = [line.split('=')[1].rstrip() for line in keys]
-        token = k[0]
-        api_key = k[1]
+        k = [line.split('=')[1].rstrip().lstrip() for line in keys]
         return FrozenDict(
-                          {'token':   k[0],
-                           'api_key': k[1],
+                          {'api_key':   k[0],
+                           'token': k[1],
                            'board': 'BE89pW61'
                            }
                           )
